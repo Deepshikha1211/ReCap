@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReCap - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2 class="logo"><i class="fas fa-clone"></i> ReCap</h2>
+      <ul class="menu">
+        <li><i class="fas fa-home"></i> Dashboard</li>
+        <li><i class="fas fa-plus-circle"></i> Create Flashcard</li>
+        <li><i class="fas fa-list"></i> View Flashcards</li>
+        <li><i class="fas fa-trash"></i> Delete Flashcards</li>
+        <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Welcome, <span id="username"></span>!</h1>
+      <div class="stats">
+        <div class="card">
+          <h3>Total Flashcards</h3>
+          <p id="totalFlashcards">0</p>
+        </div>
+        <div class="card">
+          <h3>Recent Activity</h3>
+          <p id="recentActivity">No activity yet</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="createFlashcard"><i class="fas fa-plus"></i> Create Flashcard</button>
+        <button id="viewFlashcards"><i class="fas fa-list"></i> View Flashcards</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
