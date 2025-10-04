@@ -13,11 +13,10 @@
     <div class="sidebar">
       <h2 class="logo"><i class="fas fa-clone"></i> ReCap</h2>
       <ul class="menu">
-        <li><i class="fas fa-home"></i> Dashboard</li>
-        <li><i class="fas fa-plus-circle"></i> Create Flashcard</li>
-        <li><i class="fas fa-list"></i> View Flashcards</li>
-        <li><i class="fas fa-trash"></i> Delete Flashcards</li>
-        <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+        <li id="menuDashboard"><i class="fas fa-home"></i> Dashboard</li>
+        <li id="menuCreate"><i class="fas fa-plus-circle"></i> Create Flashcard</li>
+        <li id="menuView"><i class="fas fa-list"></i> View Flashcards</li>
+        <li id="menuLogout"><i class="fas fa-sign-out-alt"></i> Logout</li>
       </ul>
     </div>
 
@@ -37,8 +36,20 @@
 
       <div class="actions">
         <button id="createFlashcard"><i class="fas fa-plus"></i> Create Flashcard</button>
-        <button id="viewFlashcards"><i class="fas fa-list"></i> View Flashcards</button>
       </div>
+
+      <div id="flashcardsContainer" class="flashcards-list"></div>
+    </div>
+  </div>
+
+  <!-- Modal for creating flashcard -->
+  <div id="flashcardModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create Flashcard</h2>
+      <input type="text" id="questionInput" placeholder="Enter Question">
+      <input type="text" id="answerInput" placeholder="Enter Answer">
+      <button id="saveFlashcard">Save Flashcard</button>
     </div>
   </div>
 

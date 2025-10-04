@@ -24,7 +24,8 @@ loginForm.addEventListener("submit", (e) => {
 
   // ✅ Validate against stored users
   if (users[username] && users[username].password === password) {
-    alert("Login successful! 🎉");
+    // Save current user (important for dashboard)
+    localStorage.setItem("currentUser", username);
 
     // Save Remember Me info if checked
     if (rememberCheckbox.checked) {
@@ -36,6 +37,7 @@ loginForm.addEventListener("submit", (e) => {
       localStorage.removeItem("rememberMe");
     }
 
+    alert("Login successful! 🎉");
     // Redirect to dashboard
     window.location.href = "dashboard.html";
   } else {
