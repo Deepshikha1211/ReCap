@@ -1,0 +1,121 @@
+body {
+  background: #f6f8ff;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  border-bottom: 1px solid #eee;
+}
+
+header h1 {
+  color: #5a4fcf;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#searchInput {
+  width: 250px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  background: #5a4fcf;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+button:hover {
+  background: #4a3fcf;
+}
+
+.flashcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px ;
+  padding: 30px 40px;
+}
+
+.flashcard {
+  perspective: 1000px;
+  width: 50%;
+}
+
+.flashcard-inner {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  border-radius: 12px;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-weight: 600;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  overflow-wrap: break-word;
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, #5a4fcf, #8a79ff);
+  color: white;
+}
+
+.flashcard-back {
+  background: #f1f3ff;
+  color: #333;
+  transform: rotateY(180deg);
+}
+
+/* Buttons inside card */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 10px;
+  width: calc(100% - 30px);
+  padding: 0 15px;
+}
+
+.delete-btn, .learn-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+}
+.delete-btn { background: #e74c3c; }
+.learn-btn { background: #2ecc71; }
+.delete-btn:hover { background: #c0392b; }
+.learn-btn:hover { background: #27ae60; }

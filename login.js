@@ -3,6 +3,24 @@ const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const rememberCheckbox = document.getElementById("remember");
 
+// Toast Message Function 
+function showMessage(message, success = true) {
+  const box = document.getElementById("message-box");
+
+  // If message box doesn’t exist 
+  if (!box) return;
+
+  box.textContent = message;
+  box.style.backgroundColor = success ? "#4CAF50" : "#f44336"; 
+  box.style.display = "block";
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 3000);
+}
+
+
 // Load saved username/password if Remember Me was checked
 window.onload = () => {
   const remembered = JSON.parse(localStorage.getItem("rememberMe"));
@@ -22,7 +40,7 @@ loginForm.addEventListener("submit", (e) => {
 
   const users = JSON.parse(localStorage.getItem("users")) || {};
 
-  // ✅ Validate against stored users
+  //  Validate against stored users
   if (users[username] && users[username].password === password) {
     // Save current user (important for dashboard)
     localStorage.setItem("currentUser", username);
@@ -37,10 +55,15 @@ loginForm.addEventListener("submit", (e) => {
       localStorage.removeItem("rememberMe");
     }
 
-    alert("Login successful! 🎉");
-    // Redirect to dashboard
-    window.location.href = "dashboard.html";
+    // alert with custom message
+    showMessage("Login successful! 🎉", true);
+
+    // Redirect after short delay
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
+    }, 1500);
   } else {
-    alert("Invalid username or password!");
+    // alert with custom error message
+    showMessage("Invalid username or password!", false);
   }
 });

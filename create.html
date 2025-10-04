@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReCap - Create Flashcard</title>
+  <link rel="stylesheet" href="create.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="view-container">
+    <header>
+      <h1><i class="fas fa-plus-square"></i> Create Flashcard</h1>
+      <button onclick="window.location.href='dashboard.html'"><i class="fas fa-arrow-left"></i> Back</button>
+    </header>
+
+    <div class="create-card">
+      <label for="question">Question:</label>
+      <textarea id="question" placeholder="Type your question here..."></textarea>
+
+      <label for="answer">Answer:</label>
+      <textarea id="answer" placeholder="Type the answer here..."></textarea>
+
+      <button class="save-btn" id="saveBtn"><i class="fas fa-save"></i> Save Flashcard</button>
+
+      <div class="preview">
+        <h3>Live Preview:</h3>
+        <div class="flashcard-preview">
+          <div class="flashcard-inner" id="previewCard">
+            <div class="flashcard-front" id="previewFront">Question will appear here</div>
+            <div class="flashcard-back" id="previewBack">Answer will appear here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="create.js"></script>
+</body>
+</html>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ReCap - Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <div class="dashboard-container">
@@ -23,10 +24,26 @@
     <!-- Main Content -->
     <div class="main-content">
       <h1>Welcome, <span id="username"></span>!</h1>
+
+      <!-- Search + Progress -->
+      <div class="top-controls">
+        <input type="text" id="searchInput" placeholder="Search flashcards..." />
+        <div class="progress-wrapper">
+          <label>Progress:</label>
+          <div class="progress-bar"><div id="progressFill"></div></div>
+          <span id="progressPercent">0%</span>
+        </div>
+      </div>
+
+      <!-- Stats Section -->
       <div class="stats">
         <div class="card">
           <h3>Total Flashcards</h3>
           <p id="totalFlashcards">0</p>
+        </div>
+        <div class="card">
+          <h3>Learned Flashcards</h3>
+          <p id="learnedFlashcards">0</p>
         </div>
         <div class="card">
           <h3>Recent Activity</h3>
@@ -34,24 +51,16 @@
         </div>
       </div>
 
-      <div class="actions">
-        <button id="createFlashcard"><i class="fas fa-plus"></i> Create Flashcard</button>
+      <!-- Placeholder Message -->
+      <div class="placeholder">
+        <i class="fas fa-clone"></i>
+        <p>Start by creating your first flashcard!</p>
       </div>
-
-      <div id="flashcardsContainer" class="flashcards-list"></div>
     </div>
   </div>
 
-  <!-- Modal for creating flashcard -->
-  <div id="flashcardModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Create Flashcard</h2>
-      <input type="text" id="questionInput" placeholder="Enter Question">
-      <input type="text" id="answerInput" placeholder="Enter Answer">
-      <button id="saveFlashcard">Save Flashcard</button>
-    </div>
-  </div>
+  <!-- Toast Notification -->
+  <div id="toast"></div>
 
   <script src="dashboard.js"></script>
 </body>
