@@ -3,8 +3,11 @@ const usernameDisplay = document.getElementById("username");
 const toast = document.getElementById("toast");
 const progressFill = document.getElementById("progressFill");
 const progressPercent = document.getElementById("progressPercent");
+const totalFlashcardsEl = document.getElementById("totalFlashcards");
+const learnedFlashcardsEl = document.getElementById("learnedFlashcards");
+const recentActivityEl = document.getElementById("recentActivity");
 
-// ======== Toast ========
+// ======== Toast Notification ========
 function showToast(message, type = "success") {
   toast.textContent = message;
   toast.className = type;
@@ -21,48 +24,66 @@ window.onload = () => {
   }
   usernameDisplay.textContent = currentUser;
 
-  loadDashboardData();
+  updateDashboard();
   showToast(`Welcome back, ${currentUser}! 🎉`);
 };
 
-// ======== Dashboard Data ========
-function loadDashboardData() {
-  const flashcards = JSON.parse(localStorage.getItem("flashcards")) || [];
-  const learnedCount = flashcards.filter(f => f.learned).length;
+// ======== UPDATE DASHBOARD DATA ========
+function updateDashboard() {
+  const folders = JSON.parse(localStorage.getItem("folders")) || {};
 
-  document.getElementById("totalFlashcards").textContent = flashcards.length;
-  document.getElementById("learnedFlashcards").textContent = learnedCount;
-  document.getElementById("recentActivity").textContent =
-    flashcards.length > 0
-      ? `Last added: ${flashcards[flashcards.length - 1].question}`
-      : "No activity yet";
+  let totalFlashcards = 0;
+  let learnedFlashcards = 0;
+  let recentQuestion = "No activity yet";
+  let recentTime = 0;
 
-  const percent = flashcards.length
-    ? Math.round((learnedCount / flashcards.length) * 100)
-    : 0;
+  Object.keys(folders).forEach(folderName => {
+    const flashcards = folders[folderName];
+
+    totalFlashcards += flashcards.length;
+    learnedFlashcards += flashcards.filter(f => f.learned).length;
+
+    // Most recent flashcard (if we ever store timestamps)
+    flashcards.forEach(f => {
+      if (f.createdAt && f.createdAt > recentTime) {
+        recentTime = f.createdAt;
+        recentQuestion = f.question;
+      }
+    });
+  });
+
+  // Update dashboard stats
+  totalFlashcardsEl.textContent = totalFlashcards;
+  learnedFlashcardsEl.textContent = learnedFlashcards;
+  recentActivityEl.textContent =
+    totalFlashcards > 0 ? `Last added: ${recentQuestion}` : "No activity yet";
+
+  const percent =
+    totalFlashcards === 0
+      ? 0
+      : Math.round((learnedFlashcards / totalFlashcards) * 100);
+
   progressFill.style.width = percent + "%";
   progressPercent.textContent = percent + "%";
 }
 
-// ======== Search ========
-document.getElementById("searchInput").addEventListener("input", e => {
-  const query = e.target.value.toLowerCase();
-  showToast(`Searching for "${query}"`, "success");
-});
 
-// ======== Sidebar Menu ========
+// ======== SIDEBAR MENU ========
 document.getElementById("menuDashboard").onclick = () =>
   showToast("You're already on Dashboard!");
+
 document.getElementById("menuCreate").onclick = () => {
   showToast("Opening flashcard creator...", "success");
-  setTimeout(() => (window.location.href = "create.html"), 1200);
+  setTimeout(() => (window.location.href = "create.html"), 1000);
 };
+
 document.getElementById("menuView").onclick = () => {
   showToast("Opening flashcard list...", "success");
-  setTimeout(() => (window.location.href = "view.html"), 1200);
+  setTimeout(() => (window.location.href = "view.html"), 1000);
 };
+
 document.getElementById("menuLogout").onclick = () => {
   localStorage.removeItem("currentUser");
   showToast("Logging out...", "error");
-  setTimeout(() => (window.location.href = "login.html"), 1500);
+  setTimeout(() => (window.location.href = "login.html"), 1000);
 };

@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReCap - Flashcards</title>
-<link rel="stylesheet" href="view.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReCap - Flashcards</title>
+  <link rel="stylesheet" href="view.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<div class="view-container">
-  <header>
-    <h1><i class="fas fa-clone"></i> Your Flashcards</h1>
-    <input type="text" id="searchInput" placeholder="Search flashcards...">
-    <button onclick="window.location.href='dashboard.html'"><i class="fas fa-arrow-left"></i> Back</button>
-  </header>
+  <div class="view-container">
+    <header>
+      <h1><i class="fas fa-clone"></i> Your Flashcards</h1>
+      <input type="text" id="searchInput" placeholder="Search flashcards...">
+      <button onclick="window.location.href='dashboard.html'"><i class="fas fa-arrow-left"></i> Dashboard</button>
+    </header>
 
-  <div id="flashcardsContainer" class="flashcards-grid"></div>
-</div>
+    <div id="foldersContainer" class="folders-grid"></div>
+    <div id="flashcardsSection" style="display:none;">
+      <button id="backToFolders" class="back-folder-btn"><i class="fas fa-arrow-left"></i> Back to Folders</button>
+      <h2 id="folderTitle"></h2>
+      <div id="flashcardsContainer" class="flashcards-grid"></div>
+    </div>
+  </div>
 
-<script src="view.js"></script>
+  <script src="view.js"></script>
 </body>
 </html>

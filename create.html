@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ReCap - Create Flashcard</title>
-  <link rel="stylesheet" href="create.css"> 
+  <link rel="stylesheet" href="create.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
   <div class="view-container">
     <header>
@@ -15,6 +17,16 @@
     </header>
 
     <div class="create-card">
+      <label for="folderSelect">Select Folder (Subject):</label>
+      <div class="folder-row">
+        <select id="folderSelect">
+          <option value="">-- Choose Folder --</option>
+        </select>
+        <input type="text" id="newFolder" placeholder="New folder name" />
+        <button id="addFolderBtn"><i class="fas fa-folder-plus"></i></button>
+      </div>
+
+
       <label for="question">Question:</label>
       <textarea id="question" placeholder="Type your question here..."></textarea>
 
@@ -33,7 +45,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <script src="create.js"></script>
+
+    <script src="create.js"></script>
 </body>
+
 </html>
