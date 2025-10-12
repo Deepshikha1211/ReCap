@@ -33,7 +33,7 @@ window.onload = () => {
 
 // Login submit
 loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Stop page reload
 
   const username = usernameInput.value.trim();
   const password = passwordInput.value.trim();

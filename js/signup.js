@@ -1,5 +1,21 @@
 const signupForm = document.getElementById("signupForm");
 
+// Toast Message Function 
+function showMessage(message, success = true) {
+  const box = document.getElementById("message-box");
+
+  if (!box) return;
+
+  box.textContent = message;
+  box.style.backgroundColor = success ? "#4CAF50" : "#f44336"; 
+  box.style.display = "block";
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 3000);
+}
+
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -8,25 +24,29 @@ signupForm.addEventListener("submit", (e) => {
   const password = document.getElementById("password").value.trim();
   const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
+  // Validation
   if (!username || !email || !password || !confirmPassword) {
-    alert("Please fill all fields");
+    showMessage("Please fill all fields", false); 
     return;
   }
 
   if (password !== confirmPassword) {
-    alert("Passwords do not match!");
+    showMessage("Passwords do not match!", false); 
     return;
   }
 
-  // ✅ Store in localStorage
-  const users = JSON.parse(localStorage.getItem("users")) || {}; // get existing users
-  users[username] = { email: email, password: password };        // save new user
+  // Store in localStorage
+  const users = JSON.parse(localStorage.getItem("users")) || {};
+  users[username] = { email: email, password: password };
   localStorage.setItem("users", JSON.stringify(users));
 
-  alert("Signup successful! 🎉");
+  // Success toast
+  showMessage("Signup successful! 🎉", true);
 
   signupForm.reset();
 
-  // Redirect to login page
-  window.location.href = "login.html";
+  // Redirect after a short delay so user sees the toast
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1500);
 });

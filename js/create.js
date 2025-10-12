@@ -9,9 +9,14 @@ const previewFront = document.getElementById("previewFront");
 const previewBack = document.getElementById("previewBack");
 const previewCard = document.getElementById("previewCard");
 
+const currentUser = localStorage.getItem("currentUser");
+if (!currentUser) {
+  window.location.href = "index.html";
+}
+
 // ========== LOAD FOLDERS INTO DROPDOWN ==========
 function loadFolders() {
-  const data = JSON.parse(localStorage.getItem("folders")) || {};
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
   folderSelect.innerHTML = `<option value="">-- Choose Folder --</option>`;
 
   Object.keys(data).forEach(folder => {
@@ -32,14 +37,14 @@ addFolderBtn.addEventListener("click", () => {
     return;
   }
 
-  const data = JSON.parse(localStorage.getItem("folders")) || {};
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
   if (data[folderName]) {
     alert("Folder already exists!");
     return;
   }
 
   data[folderName] = [];
-  localStorage.setItem("folders", JSON.stringify(data));
+  localStorage.setItem("folders_" + currentUser, JSON.stringify(data));
   newFolderInput.value = "";
   alert(`Folder "${folderName}" created!`);
   loadFolders();
@@ -69,16 +74,16 @@ saveBtn.addEventListener("click", () => {
   if (!folderName) return alert("Please select a folder.");
   if (!question || !answer) return alert("Please fill both Question and Answer.");
 
-  const data = JSON.parse(localStorage.getItem("folders")) || {};
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
 
   data[folderName].push({
     question,
     answer,
     learned: false,
-    createdAt: Date.now() // ← add this timestamp
+    createdAt: Date.now()
   });
 
-  localStorage.setItem("folders", JSON.stringify(data));
+  localStorage.setItem("folders_" + currentUser, JSON.stringify(data));
 
   alert(`Flashcard added to "${folderName}"!`);
   questionInput.value = "";
@@ -87,4 +92,3 @@ saveBtn.addEventListener("click", () => {
   previewBack.textContent = "Answer will appear here";
   previewCard.classList.remove("flipped");
 });
-

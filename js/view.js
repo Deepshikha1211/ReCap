@@ -5,11 +5,27 @@ const backToFolders = document.getElementById("backToFolders");
 const folderTitle = document.getElementById("folderTitle");
 const searchInput = document.getElementById("searchInput");
 
+const currentUser = localStorage.getItem("currentUser");
+if (!currentUser) {
+  window.location.href = "index.html";
+}
+
 let currentFolder = null;
+
+// ====== Escape HTML to prevent broken layout ======
+function escapeHTML(str) {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 // ================== SHOW FOLDERS ==================
 function renderFolders() {
-  const folders = JSON.parse(localStorage.getItem("folders")) || {};
+  const folders = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
   foldersContainer.innerHTML = "";
 
   if (Object.keys(folders).length === 0) {
@@ -20,7 +36,7 @@ function renderFolders() {
   Object.keys(folders).forEach(folder => {
     const div = document.createElement("div");
     div.className = "folder-card";
-    div.innerHTML = `<i class="fas fa-folder"></i><h3>${folder}</h3>`;
+    div.innerHTML = `<i class="fas fa-folder"></i><h3>${escapeHTML(folder)}</h3>`;
     div.onclick = () => openFolder(folder);
     foldersContainer.appendChild(div);
   });
@@ -37,7 +53,7 @@ function openFolder(folderName) {
 
 // ================== SHOW FLASHCARDS OF SELECTED FOLDER ==================
 function renderFlashcards(filter = "") {
-  const data = JSON.parse(localStorage.getItem("folders")) || {};
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
   const flashcards = data[currentFolder] || [];
 
   const filtered = flashcards
@@ -59,8 +75,8 @@ function renderFlashcards(filter = "") {
 
     card.innerHTML = `
       <div class="flashcard-inner" ${learnedStyle}>
-        <div class="flashcard-front">${f.question}</div>
-        <div class="flashcard-back">${f.answer}</div>
+        <div class="flashcard-front">${escapeHTML(f.question)}</div>
+        <div class="flashcard-back">${escapeHTML(f.answer)}</div>
       </div>
       <div class="card-actions">
         <button class="learn-btn" data-index="${f.index}"><i class="fas fa-check"></i></button>
@@ -68,16 +84,23 @@ function renderFlashcards(filter = "") {
       </div>
     `;
 
+    // Flip card on click
     card.querySelector(".flashcard-inner").onclick = () => card.classList.toggle("flipped");
 
-    // Delete & Learn buttons
+    // Delete button
     card.querySelector(".delete-btn").onclick = (e) => {
       e.stopPropagation();
-      deleteFlashcard(e.target.closest("button").dataset.index);
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      deleteFlashcard(Number(btn.dataset.index));
     };
+
+    // Mark as learned
     card.querySelector(".learn-btn").onclick = (e) => {
       e.stopPropagation();
-      markLearned(e.target.closest("button").dataset.index);
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      markLearned(Number(btn.dataset.index));
     };
 
     flashcardsContainer.appendChild(card);
@@ -86,17 +109,17 @@ function renderFlashcards(filter = "") {
 
 // ================== DELETE FLASHCARD ==================
 function deleteFlashcard(index) {
-  const data = JSON.parse(localStorage.getItem("folders")) || {};
-  data[currentFolder].splice(Number(index), 1);
-  localStorage.setItem("folders", JSON.stringify(data));
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
+  data[currentFolder].splice(index, 1);
+  localStorage.setItem("folders_" + currentUser, JSON.stringify(data));
   renderFlashcards(searchInput.value);
 }
 
 // ================== MARK LEARNED ==================
 function markLearned(index) {
-  const data = JSON.parse(localStorage.getItem("folders")) || {};
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
   data[currentFolder][index].learned = true;
-  localStorage.setItem("folders", JSON.stringify(data));
+  localStorage.setItem("folders_" + currentUser, JSON.stringify(data));
   renderFlashcards(searchInput.value);
 }
 
