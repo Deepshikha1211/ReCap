@@ -10,7 +10,7 @@ if (!currentUser) {
   window.location.href = "index.html";
 }
 
-let currentFolder = null;
+let currentFolderName = null;
 
 // ====== Escape HTML to prevent broken layout ======
 function escapeHTML(str) {
@@ -44,17 +44,17 @@ function renderFolders() {
 
 // ================== OPEN FOLDER ==================
 function openFolder(folderName) {
-  currentFolder = folderName;
+  currentFolderName = folderName;
   folderTitle.textContent = folderName;
   foldersContainer.style.display = "none";
   flashcardsSection.style.display = "block";
   renderFlashcards();
 }
 
-// ================== SHOW FLASHCARDS OF SELECTED FOLDER ==================
+// ================== SHOW FLASHCARDS ==================
 function renderFlashcards(filter = "") {
   const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
-  const flashcards = data[currentFolder] || [];
+  const flashcards = data[currentFolderName] || [];
 
   const filtered = flashcards
     .map((f, i) => ({ ...f, index: i }))
@@ -70,7 +70,6 @@ function renderFlashcards(filter = "") {
   filtered.forEach(f => {
     const card = document.createElement("div");
     card.className = "flashcard";
-
     const learnedStyle = f.learned ? 'style="box-shadow: 0 0 10px #2ecc71;"' : "";
 
     card.innerHTML = `
@@ -110,7 +109,7 @@ function renderFlashcards(filter = "") {
 // ================== DELETE FLASHCARD ==================
 function deleteFlashcard(index) {
   const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
-  data[currentFolder].splice(index, 1);
+  data[currentFolderName].splice(index, 1);
   localStorage.setItem("folders_" + currentUser, JSON.stringify(data));
   renderFlashcards(searchInput.value);
 }
@@ -118,14 +117,14 @@ function deleteFlashcard(index) {
 // ================== MARK LEARNED ==================
 function markLearned(index) {
   const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
-  data[currentFolder][index].learned = true;
+  data[currentFolderName][index].learned = true;
   localStorage.setItem("folders_" + currentUser, JSON.stringify(data));
   renderFlashcards(searchInput.value);
 }
 
-// ================== SEARCH LISTENER ==================
+// ================== SEARCH ==================
 searchInput.addEventListener("input", (e) => {
-  if (currentFolder) renderFlashcards(e.target.value);
+  if (currentFolderName) renderFlashcards(e.target.value);
 });
 
 // ================== BACK TO FOLDERS ==================
@@ -133,8 +132,103 @@ backToFolders.onclick = () => {
   flashcardsSection.style.display = "none";
   foldersContainer.style.display = "grid";
   searchInput.value = "";
-  currentFolder = null;
+  currentFolderName = null;
 };
 
-// ================== INITIAL LOAD ==================
+// ================== QUIZ MODE ==================
+const startQuizBtn = document.getElementById("startQuizBtn");
+const quizModal = document.getElementById("quizModal");
+const quizQuestion = document.getElementById("quizQuestion");
+const quizOptions = document.getElementById("quizOptions");
+const quizFeedback = document.getElementById("quizFeedback");
+const nextQuestionBtn = document.getElementById("nextQuestionBtn");
+const closeQuizBtn = document.getElementById("closeQuizBtn");
+
+let currentQuestionIndex = 0;
+let questions = [];
+let quizCards = [];
+
+// Start quiz
+startQuizBtn.addEventListener("click", () => {
+  const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
+  const flashcards = data[currentFolderName] || [];
+
+  if (flashcards.length === 0) {
+    alert("No flashcards available for quiz!");
+    return;
+  }
+
+  // Build questions
+  questions = flashcards.map(card => ({
+    question: card.question,
+    correct: card.answer
+  }));
+
+  quizCards = flashcards;
+  currentQuestionIndex = 0;
+  document.body.classList.add("quiz-active");
+  quizModal.style.display = "flex";
+  showQuestion();
+});
+
+function showQuestion() {
+  const q = questions[currentQuestionIndex];
+  quizFeedback.textContent = "";
+  quizOptions.innerHTML = "";
+  quizQuestion.textContent = q.question;
+
+  // Generate 3 random wrong answers
+  const wrongAnswers = quizCards
+    .map(c => c.answer)
+    .filter(ans => ans !== q.correct)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 3);
+
+  const options = [...wrongAnswers, q.correct].sort(() => 0.5 - Math.random());
+
+  options.forEach(opt => {
+    const div = document.createElement("div");
+    div.classList.add("quiz-option");
+    div.textContent = opt;
+    div.addEventListener("click", () => checkAnswer(div, q.correct));
+    quizOptions.appendChild(div);
+  });
+
+  nextQuestionBtn.style.display = "none";
+}
+
+function checkAnswer(selected, correctAnswer) {
+  const allOptions = document.querySelectorAll(".quiz-option");
+  allOptions.forEach(opt => opt.style.pointerEvents = "none");
+
+  if (selected.textContent === correctAnswer) {
+    selected.classList.add("correct");
+    quizFeedback.textContent = "✅ Correct!";
+  } else {
+    selected.classList.add("wrong");
+    quizFeedback.textContent = `❌ Wrong! Correct: ${correctAnswer}`;
+  }
+
+  nextQuestionBtn.style.display = "inline-block";
+}
+
+nextQuestionBtn.addEventListener("click", () => {
+  currentQuestionIndex++;
+  if (currentQuestionIndex >= questions.length) {
+    quizFeedback.textContent = "🎉 Quiz Completed!";
+    quizOptions.innerHTML = "";
+    nextQuestionBtn.style.display = "none";
+  } else {
+    showQuestion();
+  }
+});
+
+closeQuizBtn.addEventListener("click", () => {
+  quizModal.style.display = "none";
+  document.body.classList.remove("quiz-active");
+});
+
+
+
+// Initialize folders on page load
 renderFolders();

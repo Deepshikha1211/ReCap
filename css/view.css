@@ -1,3 +1,4 @@
+/* ==================== Global ==================== */
 body {
   background: #f6f8ff;
   font-family: "Poppins", sans-serif;
@@ -5,6 +6,7 @@ body {
   padding: 0;
 }
 
+/* ==================== Header ==================== */
 header {
   display: flex;
   justify-content: space-between;
@@ -44,7 +46,7 @@ button:hover {
   background: #4a3fcf;
 }
 
-/* Folder Grid */
+/* ==================== Folder Grid ==================== */
 .folders-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -78,18 +80,16 @@ button:hover {
   font-size: 18px;
 }
 
+/* ==================== Flashcards ==================== */
 #folderTitle {
   text-align: center;
   color: #5a4fcf;
   font-size: 26px;
-  margin-top: 10px;   /* 👈 pehle se thoda upar */
-  margin-bottom: 10px;
-  margin-top: -60px;
-
+  margin-top: -70px;
+  margin-bottom: 20px;
 }
 
-
-/* Flashcard Grid */
+/* Flashcards Grid */
 .flashcards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -139,12 +139,7 @@ button:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow-wrap: break-word;
   transform-style: preserve-3d;
-}
-
-
-.flashcard-front, 
-.flashcard-back {
-  box-sizing: border-box; /* ensures equal inner width */
+  box-sizing: border-box;
 }
 
 .flashcard-front {
@@ -158,59 +153,148 @@ button:hover {
   transform: rotateY(180deg);
 }
 
-
+/* Card Actions (Learn / Delete) */
 .card-actions {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 18px;
   position: absolute;
- bottom: -1px;       
-  left: 55%;
-  right: auto;
+  bottom: -1px;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 5;
 }
 
-.delete-btn, .learn-btn { 
-  border: none; 
-  border-radius: 50%; 
-  width: 50px; 
-  height: 50px; 
-  font-size: 20px; 
-  cursor: pointer; 
-  color: white; 
-  transition: all 0.3s ease; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25); 
-  position: relative; 
-  z-index: 10; 
-} 
-.delete-btn { 
-  background: #e74c3c; 
-  margin-top: -16px; 
-   left: 40%;
-  right: auto;
-} 
-
-.learn-btn { 
-  background: #2ecc71; 
-  margin-top: -16px; 
-   left: auto;
-  right: 60%;
+.delete-btn, .learn-btn {
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
+
+.delete-btn {
+  background: #e74c3c;
+}
+.learn-btn {
+  background: #2ecc71;
+}
+
 .delete-btn:hover { background: #c0392b; transform: scale(1.1); }
 .learn-btn:hover { background: #27ae60; transform: scale(1.1); }
 
-/* Back to folder button */
+/* ==================== Back Button ==================== */
 .back-folder-btn {
   background: #5a4fcf;
   margin: 30px 40px;
 }
-#folderTitle {
+
+/* ==================== Quiz Button ==================== */
+.flashcards-actions {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.quiz-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* ==================== Quiz Modal ==================== */
+.quiz-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none; /* hidden by default */
+  justify-content: center;
+  align-items: flex-start; /* top center */
+  padding-top: 80px;
+  z-index: 9999; /* ensure it's above everything */
+}
+
+.quiz-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
   text-align: center;
-  color: #5a4fcf;
-  font-size: 26px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.quiz-option {
+  background: #f1f1ff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.quiz-option:hover {
+  background: #e1e1ff;
+}
+
+.quiz-option.correct {
+  background: #c8f7c5;
+  border-color: #27ae60;
+}
+
+.quiz-option.wrong {
+  background: #f8c4c4;
+  border-color: #e74c3c;
+}
+
+#quizFeedback {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.close-quiz {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.close-quiz:hover {
+  background: #c0392b;
+}
+
+/* ==================== Blur Background ==================== */
+body.quiz-active .view-container {
+  filter: blur(6px);
+  user-select: none;
+}
+
+body.quiz-active #quizModal {
+  pointer-events: auto; /* allow modal interaction */
 }

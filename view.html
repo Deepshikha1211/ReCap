@@ -12,14 +12,37 @@
     <header>
       <h1><i class="fas fa-clone"></i> Your Flashcards</h1>
       <input type="text" id="searchInput" placeholder="Search flashcards...">
-      <button onclick="window.location.href='dashboard.html'"><i class="fas fa-arrow-left"></i> Dashboard</button>
+      <button onclick="window.location.href='dashboard.html'">
+        <i class="fas fa-arrow-left"></i> Dashboard
+      </button>
     </header>
 
     <div id="foldersContainer" class="folders-grid"></div>
+
     <div id="flashcardsSection" style="display:none;">
-      <button id="backToFolders" class="back-folder-btn"><i class="fas fa-arrow-left"></i> Back to Folders</button>
+      <button id="backToFolders" class="back-folder-btn">
+        <i class="fas fa-arrow-left"></i> Back to Folders
+      </button>
       <h2 id="folderTitle"></h2>
+      <div class="flashcards-actions">
+        <button id="startQuizBtn" class="quiz-btn">
+          <i class="fas fa-question-circle"></i> Start Quiz
+        </button>
+      </div>
       <div id="flashcardsContainer" class="flashcards-grid"></div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal OUTSIDE view-container -->
+  <div id="quizModal" class="quiz-modal" style="display:none;">
+    <div class="quiz-content">
+      <h2 id="quizQuestion">Question will appear here</h2>
+      <div id="quizOptions" class="quiz-options"></div>
+      <p id="quizFeedback"></p>
+      <button id="nextQuestionBtn" class="quiz-btn">Next</button>
+      <button id="closeQuizBtn" class="close-quiz">
+        <i class="fas fa-times"></i> Close Quiz
+      </button>
     </div>
   </div>
 
