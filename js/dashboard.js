@@ -88,6 +88,12 @@ document.getElementById("menuView").onclick = () => {
   setTimeout(() => (window.location.href = "view.html"), 1000);
 };
 
+document.getElementById("menuNotes").onclick = () => {
+  showToast("Opening Notes...", "success");
+  setTimeout(() => (window.location.href = "notes.html"), 1000);
+};
+
+
 document.getElementById("menuLogout").onclick = () => {
   localStorage.removeItem("currentUser");
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
+
 <body>
   <div class="dashboard-container">
     <!-- Sidebar -->
@@ -16,8 +18,10 @@
         <li id="menuDashboard"><i class="fas fa-home"></i> Dashboard</li>
         <li id="menuCreate"><i class="fas fa-plus-circle"></i> Create Flashcard</li>
         <li id="menuView"><i class="fas fa-list"></i> View Flashcards</li>
+        <li id="menuNotes"><i class="fas fa-sticky-note"></i> Notes</li>
         <li id="menuLogout"><i class="fas fa-sign-out-alt"></i> Logout</li>
       </ul>
+
     </div>
 
     <!-- Main Content -->
@@ -29,7 +33,9 @@
         <input type="text" id="searchInput" placeholder="Search flashcards..." />
         <div class="progress-wrapper">
           <label>Progress:</label>
-          <div class="progress-bar"><div id="progressFill"></div></div>
+          <div class="progress-bar">
+            <div id="progressFill"></div>
+          </div>
           <span id="progressPercent">0%</span>
         </div>
       </div>
@@ -49,7 +55,7 @@
           <p id="recentActivity">No activity yet</p>
         </div>
       </div>
-      
+
       <!-- Placeholder Message -->
       <div class="placeholder">
         <i class="fas fa-clone"></i>
@@ -63,4 +69,5 @@
 
   <script src="js/dashboard.js"></script>
 </body>
+
 </html>

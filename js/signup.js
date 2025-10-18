@@ -24,9 +24,30 @@ signupForm.addEventListener("submit", (e) => {
   const password = document.getElementById("password").value.trim();
   const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
+  // Regex patterns
+  const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/; // 3–16 chars, letters/numbers/underscore
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email format
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // At least 8 chars, 1 uppercase, 1 number, 1 special char
+
   // Validation
   if (!username || !email || !password || !confirmPassword) {
     showMessage("Please fill all fields", false); 
+    return;
+  }
+
+  if (!usernameRegex.test(username)) {
+    showMessage("Username must be 3–16 characters (letters, numbers, or underscores)", false);
+    return;
+  }
+
+  if (!emailRegex.test(email)) {
+    showMessage("Please enter a valid email address", false);
+    return;
+  }
+
+  if (!passwordRegex.test(password)) {
+    showMessage("Password must be 8+ chars, include 1 uppercase, 1 number, and 1 special symbol", false);
     return;
   }
 
@@ -45,7 +66,7 @@ signupForm.addEventListener("submit", (e) => {
 
   signupForm.reset();
 
-  // Redirect after a short delay so user sees the toast
+  // Redirect after a short delay
   setTimeout(() => {
     window.location.href = "index.html";
   }, 1500);
