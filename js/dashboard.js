@@ -61,8 +61,18 @@ function updateDashboard() {
 // ======== On Load ========
 window.onload = () => {
   updateDashboard();
-  showToast(`Welcome back, ${currentUser}! 🎉`);
+
+  // Use sessionStorage instead of localStorage
+  const toastShownKey = `welcomeShown_${currentUser}`;
+  const hasShown = sessionStorage.getItem(toastShownKey);
+
+  if (!hasShown) {
+    showToast(`Welcome back, ${currentUser}! 🎉`);
+    sessionStorage.setItem(toastShownKey, "true");
+  }
 };
+
+
 
 // ======== SIDEBAR MENU ========
 document.getElementById("menuDashboard").onclick = () =>
@@ -80,6 +90,11 @@ document.getElementById("menuView").onclick = () => {
 
 document.getElementById("menuLogout").onclick = () => {
   localStorage.removeItem("currentUser");
+
+  // Clear session storage welcome flag
+  sessionStorage.clear();
+
   showToast("Logging out...", "error");
   setTimeout(() => (window.location.href = "index.html"), 1000);
 };
+
