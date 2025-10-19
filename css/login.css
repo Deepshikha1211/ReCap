@@ -166,3 +166,78 @@ body {
   10%, 90% {opacity: 1; transform: translateY(0);}
   100% {opacity: 0; transform: translateY(-10px);}
 }
+/* ==================== Responsive Design ==================== */
+
+/* Medium screens (tablets: up to 768px) */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 15px;
+  }
+
+  .login-box {
+    padding: 35px 25px;
+  }
+
+  .logo {
+    font-size: 28px;
+  }
+
+  .login-box h2 {
+    font-size: 20px;
+  }
+
+  .input-group input {
+    padding: 10px 12px 10px 40px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .signup-link {
+    font-size: 13px;
+  }
+}
+
+/* Small screens (mobiles: up to 480px) */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+    height: auto;
+    justify-content: flex-start;
+    background-size: cover;
+  }
+
+  .login-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .login-box {
+    padding: 30px 20px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .login-box h2 {
+    font-size: 18px;
+  }
+
+  .input-group input {
+    padding: 10px 10px 10px 38px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .signup-link {
+    font-size: 12px;
+  }
+}

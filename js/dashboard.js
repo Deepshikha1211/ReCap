@@ -104,3 +104,9 @@ document.getElementById("menuLogout").onclick = () => {
   setTimeout(() => (window.location.href = "index.html"), 1000);
 };
 
+// Sidebar toggle for mobile
+document.querySelector('.menu-toggle').addEventListener('click', function () {
+  document.querySelector('.sidebar').classList.toggle('active');
+});
+
+

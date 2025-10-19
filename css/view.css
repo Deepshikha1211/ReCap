@@ -298,3 +298,111 @@ body.quiz-active .view-container {
 body.quiz-active #quizModal {
   pointer-events: auto; /* allow modal interaction */
 }
+
+/* ==================== Responsive Design ==================== */
+
+/* Medium screens (Tablets & small laptops: up to 1024px) */
+@media (max-width: 1024px) {
+  header {
+    padding: 15px 25px;
+  }
+
+  #searchInput {
+    width: 200px;
+  }
+
+  .folders-grid {
+    gap: 20px;
+    padding: 30px;
+  }
+
+  .flashcards-grid {
+    gap: 40px 60px;
+    padding: 30px;
+  }
+
+  .flashcard-inner {
+    width: 320px;
+    height: 280px;
+  }
+}
+
+/* Small screens (Large smartphones: up to 768px) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #searchInput {
+    width: 100%;
+  }
+
+  .folders-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    padding: 25px;
+  }
+
+  .flashcards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    padding: 25px;
+  }
+
+  .flashcard-inner {
+    width: 260px;
+    height: 250px;
+  }
+
+  #folderTitle {
+    margin-top: -30px;
+    font-size: 22px;
+  }
+}
+
+/* Extra small screens (Mobile: up to 480px) */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  button {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .folders-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .flashcards-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .flashcard-inner {
+    width: 100%;
+    height: 230px;
+  }
+
+  .card-actions {
+    bottom: -10px;
+    gap: 12px;
+  }
+
+  .delete-btn, .learn-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .quiz-content {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .quiz-option {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

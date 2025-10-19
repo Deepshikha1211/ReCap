@@ -183,3 +183,81 @@
       color: #333;
       transform: rotateY(180deg);
     }
+
+    /* ============================ */
+/* 📱 Responsive Design Section */
+/* ============================ */
+
+/* For tablets and medium screens */
+@media (max-width: 768px) {
+  .view-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  header button {
+    padding: 7px 12px;
+    font-size: 14px;
+  }
+
+  .create-card {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .save-btn {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .folder-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .folder-row input,
+  .folder-row button {
+    width: 100%;
+  }
+
+  .flashcard-preview {
+    height: 150px;
+  }
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {
+  body {
+    padding: 0 10px;
+  }
+
+  header h1 {
+    font-size: 18px;
+    gap: 6px;
+  }
+
+  .create-card textarea,
+  .create-card select {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .save-btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .flashcard-preview {
+    height: 130px;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
