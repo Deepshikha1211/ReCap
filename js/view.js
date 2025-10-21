@@ -153,8 +153,8 @@ startQuizBtn.addEventListener("click", () => {
   const data = JSON.parse(localStorage.getItem("folders_" + currentUser)) || {};
   const flashcards = data[currentFolderName] || [];
 
-  if (flashcards.length === 0) {
-    alert("No flashcards available for quiz!");
+  if (flashcards.length < 4) {
+    alert("You need at least 4 flashcards in this folder to start a quiz!");
     return;
   }
 
@@ -177,12 +177,13 @@ function showQuestion() {
   quizOptions.innerHTML = "";
   quizQuestion.textContent = q.question;
 
-  // Generate 3 random wrong answers
-  const wrongAnswers = quizCards
+  // Get all other flashcard answers except the correct one
+  let wrongAnswers = quizCards
     .map(c => c.answer)
-    .filter(ans => ans !== q.correct)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 3);
+    .filter(ans => ans !== q.correct);
+
+  // Pick exactly 3 random wrong answers
+  wrongAnswers = wrongAnswers.sort(() => 0.5 - Math.random()).slice(0, 3);
 
   const options = [...wrongAnswers, q.correct].sort(() => 0.5 - Math.random());
 
@@ -203,10 +204,10 @@ function checkAnswer(selected, correctAnswer) {
 
   if (selected.textContent === correctAnswer) {
     selected.classList.add("correct");
-    quizFeedback.textContent = "✅ Correct!";
+    quizFeedback.textContent = " Correct!";
   } else {
     selected.classList.add("wrong");
-    quizFeedback.textContent = `❌ Wrong! Correct: ${correctAnswer}`;
+    quizFeedback.textContent = ` Wrong! Correct: ${correctAnswer}`;
   }
 
   nextQuestionBtn.style.display = "inline-block";
@@ -227,7 +228,6 @@ closeQuizBtn.addEventListener("click", () => {
   quizModal.style.display = "none";
   document.body.classList.remove("quiz-active");
 });
-
 
 
 // Initialize folders on page load
