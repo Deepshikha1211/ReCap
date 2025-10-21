@@ -7,7 +7,7 @@ function showMessage(message, success = true) {
   if (!box) return;
 
   box.textContent = message;
-  box.style.backgroundColor = success ? "#4CAF50" : "#f44336"; 
+  box.style.backgroundColor = success ? "#4CAF50" : "#f44336";
   box.style.display = "block";
 
   // Hide after 3 seconds
@@ -32,7 +32,7 @@ signupForm.addEventListener("submit", (e) => {
 
   // Validation
   if (!username || !email || !password || !confirmPassword) {
-    showMessage("Please fill all fields", false); 
+    showMessage("Please fill all fields", false);
     return;
   }
 
@@ -52,7 +52,7 @@ signupForm.addEventListener("submit", (e) => {
   }
 
   if (password !== confirmPassword) {
-    showMessage("Passwords do not match!", false); 
+    showMessage("Passwords do not match!", false);
     return;
   }
 

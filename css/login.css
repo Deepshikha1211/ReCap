@@ -86,7 +86,7 @@ body {
   box-shadow: 0 0 10px rgba(91, 60, 196, 0.4);
 }
 
-.input-group input:focus + i {
+.input-group input:focus+i {
   color: #5b3cc4;
 }
 
@@ -150,7 +150,8 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #4CAF50; /* green for success */
+  background-color: #4CAF50;
+  /* green for success */
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
@@ -162,10 +163,23 @@ body {
 }
 
 @keyframes fadeInOut {
-  0% {opacity: 0; transform: translateY(-10px);}
-  10%, 90% {opacity: 1; transform: translateY(0);}
-  100% {opacity: 0; transform: translateY(-10px);}
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
+
 /* ==================== Responsive Design ==================== */
 
 /* Medium screens (tablets: up to 768px) */

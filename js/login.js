@@ -11,7 +11,7 @@ function showMessage(message, success = true) {
   if (!box) return;
 
   box.textContent = message;
-  box.style.backgroundColor = success ? "#4CAF50" : "#f44336"; 
+  box.style.backgroundColor = success ? "#4CAF50" : "#f44336";
   box.style.display = "block";
 
   // Hide after 3 seconds
