@@ -26,6 +26,35 @@ ReCap is a web-based flashcard learning platform designed to assist users in imp
 |  Responsive Layout | Optimized for both desktop and mobile displays. |
 
 ---
+##  Technologies Used
+
+| Technology | Purpose |
+|------------|---------|
+| **HTML5** | Structuring web pages |
+| **CSS3** | Styling and layout |
+| **JavaScript** | Functional logic & interactivity |
+| **LocalStorage** | User-specific data persistence |
+
+---
+##  How It Works
+
+1. **User registers or logs in**
+2. **Dashboard loads stats and shows overall learning status**
+3. **Create flashcards by entering questions and answers**
+4. **Flip flashcards during revision mode**
+5. **Practice with Quiz mode**
+6. **Write notes and save them for future reference**
+7. **All information remains saved through LocalStorage**
+
+---
+
+
+## Author
+
+**Deepshikha**  
+📧 deepshikha1729.be23@chitkara.edu.in  
+
+
 
 
 
